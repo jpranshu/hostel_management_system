@@ -6,7 +6,6 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="include/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-12345" crossorigin="anonymous" />
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Hostel Management System</title>
 </head>
@@ -27,10 +26,10 @@ use function PHPSTORM_META\type;
                 $userType = $_SESSION['user_type'];
 
                 echo '<div class="flex items-center mr-4">';
-                if($userType='warden'){
+                if($userType=='warden'){
                   echo '<a href="warden_dashboard.php"><span class="mr-2 text-gray-300">Welcome, ' . $userId . ' (' . ucfirst($userType) . ')</span></a>';
                 }
-                else if($userType='student'){
+                else if($userType=='student'){
                   echo '<a href="student_dashboard.php"><span class="mr-2 text-gray-300">Welcome, ' . $userId . ' (' . ucfirst($userType) . ')</span></a>';
                 }
 
@@ -47,7 +46,7 @@ use function PHPSTORM_META\type;
                             <span class="ml-1">Update Details</span>
                           </a>';
                 } elseif ($userType === 'warden') {
-                    echo '<a href="applications.php" class="flex items-center hover:text-gray-300">
+                    echo '<a href="warden_application.php" class="flex items-center hover:text-gray-300">
                             <i class="fas fa-file-alt"></i>
                             <span class="ml-1">Applications</span>
                           </a>';
@@ -61,7 +60,7 @@ use function PHPSTORM_META\type;
             } else {
                 // If not logged in, show registration and login options
                 echo '<a href="./student_register.php" class="flex items-center hover:text-gray-300">
-                        <i class="fas fa-user"></i>
+                        <i class="fa fa-user"></i>
                         <span class="ml-1">Student Registration</span>
                       </a>';        
                 echo '<a href="./student_login.php" class="flex items-center hover:text-gray-300">

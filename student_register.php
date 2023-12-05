@@ -14,7 +14,7 @@
         
         <title>Student Register</title>
     </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 h-screen flex items-center justify-center">
   <?php include 'include/header.php'?>
 
   <div class="container mx-auto p-8 max-w-md">
