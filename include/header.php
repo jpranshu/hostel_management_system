@@ -63,6 +63,10 @@
                         <i class="fas fa-users"></i>
                         <span class="ml-1">Warden Registration</span>
                       </a>';
+                echo '<a href="./warden_login.php" class="flex items-center hover:text-gray-300">
+                      <i class="fas fa-users"></i>
+                      <span class="ml-1">Warden Login</span>
+                    </a>';
                 echo '<a href="#" class="flex items-center hover:text-gray-300">
                         <i class="fas fa-envelope"></i>
                         <span class="ml-1">Contact</span>
