@@ -19,12 +19,21 @@
         <?php
 
             // Check if the user is logged in
+
+use function PHPSTORM_META\type;
+
             if (isset($_SESSION['user_id'])) {
                 $userId = $_SESSION['user_id'];
                 $userType = $_SESSION['user_type'];
 
                 echo '<div class="flex items-center mr-4">';
-                echo '<span class="mr-2 text-gray-300">Welcome, ' . $userId . ' (' . ucfirst($userType) . ')</span>';
+                if($userType='warden'){
+                  echo '<a href="warden_dashboard.php"><span class="mr-2 text-gray-300">Welcome, ' . $userId . ' (' . ucfirst($userType) . ')</span></a>';
+                }
+                else if($userType='student'){
+                  echo '<a href="student_dashboard.php"><span class="mr-2 text-gray-300">Welcome, ' . $userId . ' (' . ucfirst($userType) . ')</span></a>';
+                }
+
                 echo '</div>';
 
                 // Display options based on user type
