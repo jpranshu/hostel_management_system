@@ -1,4 +1,4 @@
-<?php include 'include/connect.php';?>
+<?php include 'include/connect.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,17 +18,15 @@
         <form action="include/process_application.php" method="post">
             <input type="hidden" name="type" value="room_reallotment" class="hidden">
 
-            <!-- Description Field -->
+
             <div class="mb-4">
                 <label for="description" class="block text-sm font-semibold text-gray-600">Description</label>
-                <textarea name="description" id="description" placeholder="Description" required
-                    class="w-full mt-1 p-2 border rounded-md resize-none focus:outline-none focus:ring focus:border-blue-300"></textarea>
+                <textarea name="description" id="description" placeholder="Description" required class="w-full mt-1 p-2 border rounded-md resize-none focus:outline-none focus:ring focus:border-blue-300"></textarea>
             </div>
 
-            <!-- Submit Button -->
+
             <div class="mb-4">
-                <button type="submit"
-                    class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">
                     Submit Application
                 </button>
             </div>

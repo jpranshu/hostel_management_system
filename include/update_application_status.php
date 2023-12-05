@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $status = $_POST['status'];
     $remarks = $_POST['remark'];
 
-    // Update status and remark based on the selected action
+
     $updateSql = "";
     $bindType = "";
 
@@ -35,12 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $updateStmt->close();
     }
 
-    // Redirect back to the application dashboard
     header('Location: ../warden_application.php');
     exit();
 } else {
-    // Redirect to the application dashboard if accessed without a POST request
     header('Location: ../warden_application.php');
     exit();
 }
-?>
