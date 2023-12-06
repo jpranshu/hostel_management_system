@@ -55,16 +55,24 @@ $stmt->close();
 
                     <form action="include/update_application_status.php" method="post">
                         <input type="hidden" name="application_id" value="<?php echo $application['application_id']; ?>">
+                        <input type="hidden" name="type" value="<?php echo $application['type']; ?>">
                         <div class="flex items-center space-x-4 mt-2">
                             <select name="status" class="p-2 border rounded">
                                 <option value="verified">Verified</option>
                                 <option value="denied">Denied</option>
-                                <option value="remark_only">remark Only</option>
+                                <option value="remark_only">Remark Only</option>
                             </select>
-                            <input type="text" name="remark" placeholder="remark" class="p-2 border rounded">
+                            <input type="text" name="remark" placeholder="Remark" class="p-2 border rounded">
                             <button type="submit" class="p-2 bg-blue-500 text-white rounded">Update Status</button>
                         </div>
                     </form>
+
+                    <?php
+                    // Check if the application type is room_reallotment
+                    if ($application['type'] === 'room_reallotment') {
+                        echo '<a href="warden_room.php" class="text-blue-500 mt-2 block">Go to Room Reallotment Dashboard</a>';
+                    }
+                    ?>
                 </div>
             <?php } ?>
         <?php } else { ?>
