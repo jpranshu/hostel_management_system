@@ -35,10 +35,10 @@
 
 
           if ($userType === 'student') {
-            echo '<a href="update_details.php" class="flex items-center hover:text-gray-300">
-                            <i class="fas fa-user-edit"></i>
-                            <span class="ml-1">Update Details</span>
-                          </a>';
+            // echo '<a href="update_details.php" class="flex items-center hover:text-gray-300">
+            //                 <i class="fas fa-user-edit"></i>
+            //                 <span class="ml-1">Update Details</span>
+            //               </a>';
             echo '<div class="dropdown inline-block relative">
                           <button class="bg-red-800 hover:text-gray-700  py-2 px-4 rounded inline-flex items-center">
                             <span class="mr-1">Application</span>
@@ -46,11 +46,11 @@
                               <path d="M5 10L10 15L15 10H5z" />
                             </svg>
                           </button>
-                          <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
-                            <li><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="./mess_application.php">Mess Payment</a></li>
-                            <li><a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="./room_reallotment.php">Room Reallocation</a></li>
-                            <li><a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="./repair_request.php">Repair Request</a></li>
-                            <li><a class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="hostel_request.php">Hostel Payment</a></li>
+                          <ul class="dropdown-menu absolute hidden pt-1">
+                            <li><a class="rounded-t bg-red-800 hover:bg-red-600 py-2 px-4 block whitespace-no-wrap" href="./mess_application.php">Mess Payment</a></li>
+                            <li><a class="bg-red-800 hover:bg-red-600 py-2 px-4 block whitespace-no-wrap" href="./room_reallotment.php">Room Reallocation</a></li>
+                            <li><a class="bg-red-800 hover:bg-red-600 py-2 px-4 block whitespace-no-wrap" href="./repair_request.php">Repair Request</a></li>
+                            <li><a class="rounded-b bg-red-800 hover:bg-red-600 py-2 px-4 block whitespace-no-wrap" href="hostel_request.php">Hostel Payment</a></li>
                           </ul>
                         </div>';
           } elseif ($userType === 'warden') {
@@ -91,13 +91,10 @@
     </div>
   </header>
 
-  <!-- Include JavaScript for dropdown functionality -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Get all dropdowns on the page
       var dropdowns = document.querySelectorAll('.dropdown');
 
-      // Add click event listener to each dropdown
       dropdowns.forEach(function(dropdown) {
         var button = dropdown.querySelector('button');
         var menu = dropdown.querySelector('.dropdown-menu');
@@ -106,7 +103,6 @@
           menu.classList.toggle('hidden');
         });
 
-        // Close dropdown when clicking outside of it
         document.addEventListener('click', function(event) {
           if (!dropdown.contains(event.target)) {
             menu.classList.add('hidden');

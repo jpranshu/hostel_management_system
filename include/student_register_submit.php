@@ -1,7 +1,7 @@
 <?php
 
 include './connect.php';
-
+session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $rollNumber = $_POST['roll_number'];

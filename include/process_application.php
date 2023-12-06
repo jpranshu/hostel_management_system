@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_insert_application->execute();
 
         if ($stmt_insert_application->affected_rows > 0) {
-            echo "Application submitted successfully!";
+            header('Location: ../student_dashboard.php?message=Application%20Processed');
         } else {
             echo "Error: Application submission failed.";
         }

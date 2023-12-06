@@ -39,12 +39,12 @@ $stmt->close();
 
     <?php include 'include/header.php'; ?>
 
-    <div class="container mx-auto mt-[10vh]">
+    <div class="container px-5 mx-auto mt-[10vh]">
         <h1 class="text-2xl font-bold mb-4">Warden Application Dashboard - <?php echo $hostelId ?></h1>
 
         <?php if (!empty($applications)) { ?>
             <?php foreach ($applications as $application) { ?>
-                <div class="bg-white p-4 mb-4 shadow-md">
+                <div class="bg-white p-8 mb-4 shadow-md">
                     <h2 class="text-xl font-semibold mb-2"><?php echo ucfirst($application['type']); ?> Application</h2>
                     <p><strong>Application ID:</strong> <?php echo $application['application_id']; ?></p>
                     <p><strong>Roll Number:</strong> <?php echo $application['roll_number']; ?></p>
@@ -56,23 +56,25 @@ $stmt->close();
                     <form action="include/update_application_status.php" method="post">
                         <input type="hidden" name="application_id" value="<?php echo $application['application_id']; ?>">
                         <input type="hidden" name="type" value="<?php echo $application['type']; ?>">
-                        <div class="flex items-center space-x-4 mt-2">
-                            <select name="status" class="p-2 border rounded">
-                                <option value="verified">Verified</option>
-                                <option value="denied">Denied</option>
-                                <option value="remark_only">Remark Only</option>
-                            </select>
-                            <input type="text" name="remark" placeholder="Remark" class="p-2 border rounded">
-                            <button type="submit" class="p-2 bg-blue-500 text-white rounded">Update Status</button>
-                        </div>
+                        <?php
+                        if ($application['type'] != 'room_reallotment') { ?>
+                            <div class="flex items-center space-x-4 mt-2">
+                                <select name="status" class="p-2 border rounded">
+                                    <option value="verified">Verified</option>
+                                    <option value="denied">Denied</option>
+                                    <option value="remark_only">Remark Only</option>
+                                </select>
+                                <input type="text" name="remark" placeholder="Remark" class="p-2 border rounded">
+                                <button type="submit" class="p-2 bg-blue-500 text-white rounded">Update Status</button>
+                            </div>
+                        <?php } 
+                        else{
+                            echo '<a href="warden_room.php" class="text-blue-500 mt-2 block">Go to Room Reallotment Dashboard</a>';
+                        }?>
+
+
                     </form>
 
-                    <?php
-                    // Check if the application type is room_reallotment
-                    if ($application['type'] === 'room_reallotment') {
-                        echo '<a href="warden_room.php" class="text-blue-500 mt-2 block">Go to Room Reallotment Dashboard</a>';
-                    }
-                    ?>
                 </div>
             <?php } ?>
         <?php } else { ?>

@@ -14,7 +14,7 @@
   <link href="fonts/material-icons.css" rel="stylesheet">
   <link href="include/main.css" rel="stylesheet" type="text/css" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <title>Student Register</title>
+  <title>Student Login</title>
 </head>
 
 <body class="bg-gray-100 h-screen flex items-center justify-center">

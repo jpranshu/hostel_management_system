@@ -1,23 +1,22 @@
 <?php
 include './connect.php';
 
-// Check if the user is logged in as a warden
+
 if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'warden') {
-    // Redirect to the warden login page if not logged in as a warden
+
     header('Location: warden_login.php');
     exit();
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $type = $_POST['type'];
+    $applicationId = $_POST['application_id'];
+    $status = $_POST['status'];
+    $remarks = $_POST['remarks'];
+ 
+    if ($status === 'verified') {
 
-    // Handle room reallotment approval
-    if ($type === 'room_reallotment') {
-        $applicationId = $_POST['application_id'];
-        $status = $_POST['status'];
-        $remarks = $_POST['remarks'];
 
-        // Retrieve application details
         $sqlApplication = "SELECT * FROM application WHERE application_id = ?";
         $stmtApplication = $conn->prepare($sqlApplication);
         $stmtApplication->bind_param("i", $applicationId);
@@ -26,10 +25,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($resultApplication->num_rows > 0) {
             $application = $resultApplication->fetch_assoc();
-            if($application['transaction_id']==NULL){
-                $application['transaction_id']=$_POST['transaction_id'];
+            if ($application['transaction_id'] == NULL) {
+                $application['transaction_id'] = $_POST['transaction_id'];
             }
-            // Check the current room capacity
+
             $sqlCapacityCheck = "SELECT student_1, student_2, student_3 FROM room
                                  WHERE room_number = ? AND hostel_id = ?";
             $stmtCapacityCheck = $conn->prepare($sqlCapacityCheck);
@@ -49,18 +48,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $roomData2 = $resultCapacityCheck2->fetch_assoc();
 
                 $roomUpdate = NULL;
+
                 if ($roomData2['student_1'] == $application['roll_number']) {
                     $roomUpdate = 'student_1';
                 } else if ($roomData2['student_2'] == $application['roll_number']) {
                     $roomUpdate = 'student_2';
-                } else if ($roomData2['student_3'] == $application['room_number']) {
+                } else if ($roomData2['student_3'] == $application['roll_number']) {
                     $roomUpdate = 'student_3';
                 }
 
                 if ($roomData['student_1'] !== NULL && $roomData['student_2'] !== NULL && $roomData['student_3'] !== NULL) {
                     echo "Room is at maximum capacity. Please choose another room.";
                 } else {
-                    // Find the first available student column
+
                     $availableColumn = null;
                     if ($roomData['student_1'] === NULL) {
                         $availableColumn = 'student_1';
@@ -70,11 +70,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $availableColumn = 'student_3';
                     }
 
-
+                    $null = NULL;
                     if ($availableColumn) {
                         // Remove the record of the student from their current room
-                        $sqlRemoveStudentFromRoom = "UPDATE room SET $roomUpdate = NULL 
-                                                     WHERE room_number = ? AND hostel_id = ?";
+                        $sqlRemoveStudentFromRoom = "UPDATE room 
+                                                    SET 
+                                                    $roomUpdate = NULL
+                                                    WHERE 
+                                                    room_number = ? 
+                                                    AND 
+                                                    hostel_id = ?";
                         $stmtRemoveStudentFromRoom = $conn->prepare($sqlRemoveStudentFromRoom);
                         $stmtRemoveStudentFromRoom->bind_param("is", $application['room_number'], $application['hostel_id']);
                         $stmtRemoveStudentFromRoom->execute();
@@ -101,8 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $stmtUpdateApplication->execute();
 
                         // Redirect or display success message as needed
-                        header('Location: ../warden_dashboard.php');
-                        exit();
+                        header('Location: ../warden_room.php');
                     } else {
                         echo "Error: No available column in the room table.";
                     }
@@ -111,8 +115,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "Error: Room capacity check failed.";
             }
         } else {
-            // Application not found
+
             echo "Error: Application not found.";
         }
+    } else {
+        $sqlUpdateApplication = "UPDATE application SET status = ?, remark = ? 
+        WHERE application_id = ?";
+        $stmtUpdateApplication = $conn->prepare($sqlUpdateApplication);
+        $stmtUpdateApplication->bind_param("ssi", $status, $remarks, $applicationId);
+        $stmtUpdateApplication->execute();
+
+        header('Location: ../warden_room.php');
     }
 }

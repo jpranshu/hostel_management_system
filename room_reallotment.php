@@ -1,43 +1,32 @@
 <?php
-// S
-// Include your database connection file
+
 include 'include/connect.php';
 
-session_start();
-
-// Check if the user is logged in as a student
 if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'student') {
-    // Redirect to the student login page if not logged in as a student
+
     header('Location: student_login.php');
 
 }
 
-
-// Get the student's ID from the session
 $studentId = $_SESSION['user_id'];
 
-// Retrieve the student's current room details
 $sql = "SELECT room_number, hostel_id FROM room WHERE student_1 = ? OR student_2 = ? OR student_3 = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("sss", $studentId, $studentId, $studentId);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Check if the student is currently allocated to a room
 if ($result->num_rows > 0) {
     $currentRoom = $result->fetch_assoc();
 }
 
-// Retrieve available rooms for reallotment
 $sql = "SELECT room_number, hostel_id, capacity FROM room WHERE (student_1 IS NULL OR student_2 IS NULL OR student_3 IS NULL) AND (hostel_id = ?)";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $currentRoom['hostel_id']);
 $stmt->execute();
 $availableRooms = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-// Close the database connection
 $stmt->close();
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -48,11 +37,11 @@ $conn->close();
     <title>Room Reallotment Application</title>
     <link rel="stylesheet" href="https://cdn.tailwindcss.com">
 </head>
-<body>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
 
 <?php include 'include/header.php'; ?>
 
-<div class="container mx-auto mt-[10vh]">
+<div class="container mx-[40%] mt-[10vh]">
     <h1 class="text-2xl font-bold mb-4">Room Reallotment Application</h1>
 
     <?php if (isset($currentRoom)) { ?>
