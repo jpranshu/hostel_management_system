@@ -1,6 +1,6 @@
 <?php
 include 'include/connect.php';
-
+$popupMessage = isset($_GET['message']) ? urldecode($_GET['message']) : '';
 if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'warden') {
     header('Location: warden_login.php');
     exit();
@@ -51,7 +51,14 @@ $stmtRooms->close();
 </head>
 
 <body class="bg-gray-100 h-screen flex items-center justify-center">
-
+<script>
+        // Check if the message is not empty
+        var popupMessage = '<?php echo $popupMessage; ?>';
+        if (popupMessage.trim() !== '') {
+            // Display the message as an alert or use a library for a more styled popup
+            alert(popupMessage);
+        }
+    </script>
     <?php include 'include/header.php'; ?>
 
     <div class="container mx-auto mt-[10vh]">
@@ -86,7 +93,30 @@ $stmtRooms->close();
             <p>No rooms found in the hostel.</p>
         <?php } ?>
 
+
+        <div class="container mx-auto mt-[10vh]">
+            <h1 class="text-2xl font-bold mb-4">Add Room</h1>
+
+            <form action="include/room_create_process.php" method="post">
+                <!-- Input field for room number -->
+                <div class="mb-4">
+                    <label for="room_number" class="block text-sm font-medium text-gray-600">Room Number</label>
+                    <input type="text" name="room_number" id="room_number" class="p-2 border rounded">
+                </div>
+
+                <!-- Input field for capacity -->
+                <div class="mb-4">
+                    <label for="capacity" class="block text-sm font-medium text-gray-600">Capacity</label>
+                    <input type="number" name="capacity" id="capacity" class="p-2 border rounded">
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="p-2 bg-blue-500 text-white rounded">Add Room</button>
+            </form>
+
+        </div>
     </div>
+
 
 </body>
 

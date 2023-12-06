@@ -26,7 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($resultApplication->num_rows > 0) {
             $application = $resultApplication->fetch_assoc();
-
+            if($application['transaction_id']==NULL){
+                $application['transaction_id']=$_POST['transaction_id'];
+            }
             // Check the current room capacity
             $sqlCapacityCheck = "SELECT student_1, student_2, student_3 FROM room
                                  WHERE room_number = ? AND hostel_id = ?";

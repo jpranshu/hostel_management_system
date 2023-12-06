@@ -65,7 +65,7 @@
 
       <div class="mb-4">
         <label for="room_number" class="block text-sm font-semibold text-gray-600">Room Number</label>
-        <input type="text" id="room_number" name="room_number" class="w-full mt-1 p-2 border rounded-md" required>
+        <input type="text" id="room_number" name="room_number" placeholder="000 if not alloted" class="w-full mt-1 p-2 border rounded-md" required>
       </div>
 
 

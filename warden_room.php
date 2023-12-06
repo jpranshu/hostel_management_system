@@ -56,6 +56,9 @@ $conn->close();
                             <form action="include/warden_room_process.php" method="post">
                                 <input type="hidden" name="type" value="room_reallotment">
                                 <input type="hidden" name="application_id" value="<?php echo $application['application_id']; ?>">
+                                <?php if($application['transaction_id']==NULL){
+                                    ?><input type="number" name="transaction_id" placeholder="Enter room alloted" class="p-2 border rounded"><?php
+                                }?>
                                 
                                 <!-- Select field for approval or denial -->
                                 <select name="status" class="p-2 border rounded">
