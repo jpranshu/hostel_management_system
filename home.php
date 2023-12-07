@@ -14,7 +14,7 @@
 
 <body style="background: url('include/image/spiral.jpg') no-repeat;background-size:cover;" class="relative h-screen">
 
-    <div class="absolute text-gray-200 top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 bg-opacity-60 p-8 rounded-md text-center">
+    <div class="absolute text-gray-200 top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-900 bg-opacity-60 p-8 rounded-xl text-center">
         <h1 class="text-6xl font-bold">Hostel Management System</h1>
         <h2 class="text-xl mt-5">@Pranshu Jaiswal - B210020CS</h2>
 

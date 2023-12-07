@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 VALUES ('$rollNumber', 'room_reallotment', '$hostelId', 'Room Allotment Request', 'requested', 0, ' ')";
                     mysqli_query($conn, $sql_insert_application);
                 }
-                header('Location: student_dashboard.php');
+                header('Location: ../student_dashboard.php');
 
                 mysqli_query($conn, $sql_update_room);
             } else {
