@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 if ($roomNumber === '000') {
                     $sql_insert_application = "INSERT INTO application (roll_number, type, hostel_id, description, status, room_number, remark)
-                VALUES ('$rollNumber', 'room_reallotment', '$hostelId', 'Room Reallotment Request', 'requested', 0, ' ')";
+                VALUES ('$rollNumber', 'room_reallotment', '$hostelId', 'Room Allotment Request', 'requested', 0, ' ')";
                     mysqli_query($conn, $sql_insert_application);
                 }
                 header('Location: student_dashboard.php');

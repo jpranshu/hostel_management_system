@@ -17,8 +17,10 @@ include 'include/connect.php';
   <title>Hostel Management System</title>
 </head>
 
-<body>
+<body >
   <?php include 'include/header.php' ?>
+  <?php include './home.php'?>
+
 
 </body>
 
